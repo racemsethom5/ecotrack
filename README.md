@@ -117,14 +117,12 @@ AI assistance was used in the following areas:
 Design improvements
 **
  - UI/UX enhancements and component styling
--
- 
+
 **
 Bug fixing
 **
  - Debugging and resolving technical issues
--
- 
+
 **
 Documentation
 **
