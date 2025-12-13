@@ -106,3 +106,27 @@ docker-compose logs -f app  # View logs
 - **Zod** - Schema validation for both frontend forms and backend APIs
 - **Docker** - Containerization for consistent development and deployment environments
 
+
+##
+ 🤖 AI Usage
+
+AI assistance was used in the following areas:
+-
+ 
+**
+Design improvements
+**
+ - UI/UX enhancements and component styling
+-
+ 
+**
+Bug fixing
+**
+ - Debugging and resolving technical issues
+-
+ 
+**
+Documentation
+**
+ - README and setup guides
+
