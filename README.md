@@ -1,8 +1,54 @@
-# 🌍 EcoTrack - CO2 Carbon Footprint Calculator
+#
+ 🌍 EcoTrack - CO2 Carbon Footprint Calculator
 
 A full-stack Next.js application for calculating and tracking your annual carbon footprint across energy, transportation, lifestyle, and waste categories.
+##
+ 📸 Screenshots
 
-## 🚀 Quick Start
+###
+ Calculator Interface
+
+!
+[
+Calculator
+](
+./screenshots/calculator.png
+)
+
+*
+Multi-step form for calculating your carbon footprint
+*
+
+###
+ Results Dashboard
+
+!
+[
+Results Dashboard
+](
+./screenshots/dashboard.png
+)
+
+*
+Interactive charts showing your emission breakdown
+*
+
+###
+ Calculation History
+
+!
+[
+History
+](
+./screenshots/history.png
+)
+
+*
+Track and compare your past calculations
+*
+
+##
+ 🚀 Quick Start
 
 ### Prerequisites
 
