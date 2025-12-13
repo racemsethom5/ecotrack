@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌍 EcoTrack - CO2 Carbon Footprint Calculator
 
-## Getting Started
+A full-stack Next.js application for calculating and tracking your annual carbon footprint across energy, transportation, lifestyle, and waste categories.
 
-First, run the development server:
+## 🚀 Quick Start
 
+### Prerequisites
+
+- Node.js 20+ and npm
+- Docker and Docker Compose
+- Git
+
+### Installation
+
+1. **Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <https://github.com/racemsethom5/ecotrack.git>
+cd ecotrack
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Configure API key** (Optional)
+```bash
+cp .env.example .env.local
+```
+Edit `.env.local` and add your CarbonInterface API key:
+```env
+CARBON_INTERFACE_API_KEY=your_api_key_here
+```
+Get your free API key at [CarbonInterface.com](https://www.carboninterface.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Note:** App works without API key using fallback calculations.
 
-## Learn More
+4. **Start the application**
+```bash
+docker-compose up
+```
 
-To learn more about Next.js, take a look at the following resources:
+The app will be available at **http://localhost:3000**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+ecotrack/
+├── src/
+│   ├── app/
+│   │   ├── api/emissions/      # API endpoints
+│   │   ├── results/            # Results page
+│   │   ├── layout.tsx          # Root layout
+│   │   └── page.tsx            # Calculator page
+│   ├── components/
+│   │   ├── calculator/         # Form components
+│   │   └── results/            # Dashboard components
+│   ├── lib/
+│   │   ├── validators/         # Zod schemas
+│   │   ├── mongodb.ts          # DB connection
+│   │   ├── carbonInterface.ts  # API integration
+│   │   └── emissionsCalculator.ts  # Calculations
+│   ├── models/
+│   │   └── EmissionRecord.ts   # Mongoose model
+│   └── types/
+│       └── index.ts            # TypeScript types
+├── docker-compose.yml
+├── .env.local
+└── package.json
+```
 
-## Deploy on Vercel
+## 🧪 Testing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm test              # Run tests
+npm run test:watch    # Watch mode
+npm run test:coverage # With coverage
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🐳 Docker Commands
+
+```bash
+docker-compose up           # Start services
+docker-compose up -d        # Start in background
+docker-compose down         # Stop services
+docker-compose down -v      # Stop and remove data
+docker-compose logs -f app  # View logs
+```
+
+## 📋 Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `MONGODB_URI` | Yes | MongoDB connection string (configured in docker-compose.yml) |
+| `CARBON_INTERFACE_API_KEY` | No | API key (app works without it) |
+
+## 🛠 Tech Stack
+
+- **Next.js 16** - Full-stack framework (handles both frontend and backend)
+  - *Why?* Single codebase for UI and API routes, built-in TypeScript support, optimized performance, and simplified deployment
+- **TypeScript** - Type safety across the entire application
+- **MongoDB + Mongoose** - NoSQL database for flexible emission records storage
+- **Tailwind CSS** - Utility-first styling for rapid UI development
+- **Recharts** - Interactive data visualization for emission breakdowns
+- **React Hot Toast** - User-friendly notifications
+- **Zod** - Schema validation for both frontend forms and backend APIs
+- **Docker** - Containerization for consistent development and deployment environments
+
