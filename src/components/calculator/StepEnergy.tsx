@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 interface StepEnergyProps {
   formData: any;
   updateField: (field: string, value: any) => void;
@@ -6,6 +8,26 @@ interface StepEnergyProps {
 }
 
 export default function StepEnergy({ formData, updateField, onNext, onBack }: StepEnergyProps) {
+  const handleNext = () => {
+    // Validate fuel combustion if enabled
+    if (formData.hasFuelCombustion) {
+      if (!formData.fuelSourceType) {
+        toast.error('Please select a fuel type');
+        return;
+      }
+      if (!formData.fuelSourceUnit) {
+        toast.error('Please select a fuel unit');
+        return;
+      }
+      if (formData.fuelSourceValue <= 0) {
+        toast.error('Please enter a valid fuel amount');
+        return;
+      }
+    }
+    
+    onNext();
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -101,7 +123,7 @@ export default function StepEnergy({ formData, updateField, onNext, onBack }: St
           Back
         </button>
         <button
-          onClick={onNext}
+          onClick={handleNext}
           className="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
         >
           Next: Transport

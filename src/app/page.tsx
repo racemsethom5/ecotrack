@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import StepHousehold from '../components/calculator/StepHousehold';
 import StepEnergy from '../components/calculator/StepEnergy';
 import StepTransportation from '../components/calculator/StepTransportation';
@@ -41,6 +42,49 @@ export default function Home() {
     setLoading(true);
     
     try {
+      // Validation checks
+      if (formData.householdSize < 1 || formData.householdSize > 20) {
+        toast.error('⚠️ Household size must be between 1 and 20');
+        setLoading(false);
+        return;
+      }
+
+      if (formData.hasVehicle && !formData.vehicleModelId) {
+        toast.error('⚠️ Please select a vehicle model');
+        setLoading(false);
+        return;
+      }
+
+      if (formData.hasVehicle && formData.vehicleDistance <= 0) {
+        toast.error('⚠️ Please enter a valid vehicle distance');
+        setLoading(false);
+        return;
+      }
+
+      if (formData.hasFlights && (!formData.departureAirport || !formData.destinationAirport)) {
+        toast.error('⚠️ Please enter both departure and destination airports');
+        setLoading(false);
+        return;
+      }
+
+      if (formData.hasFlights && (formData.departureAirport.length !== 3 || formData.destinationAirport.length !== 3)) {
+        toast.error('⚠️ Airport codes must be 3 letters (e.g., FRA, JFK)');
+        setLoading(false);
+        return;
+      }
+
+      if (formData.hasFuelCombustion && (!formData.fuelSourceType || !formData.fuelSourceUnit)) {
+        toast.error('⚠️ Please select fuel type and unit');
+        setLoading(false);
+        return;
+      }
+
+      if (formData.hasFuelCombustion && formData.fuelSourceValue <= 0) {
+        toast.error('⚠️ Please enter a valid fuel amount');
+        setLoading(false);
+        return;
+      }
+
       const requestData: any = {
         householdSize: formData.householdSize,
         dietType: formData.dietType,
@@ -52,7 +96,7 @@ export default function Home() {
           type: 'electricity',
           electricity_unit: formData.electricityUnit,
           electricity_value: formData.electricityValue,
-          country: formData.country.toLowerCase(),
+          country: formData.country.toUpperCase(),
         };
       }
 
@@ -80,8 +124,8 @@ export default function Home() {
           passengers: formData.flightPassengers,
           legs: [
             {
-              departure_airport: formData.departureAirport.toLowerCase(),
-              destination_airport: formData.destinationAirport.toLowerCase(),
+              departure_airport: formData.departureAirport.toUpperCase(),
+              destination_airport: formData.destinationAirport.toUpperCase(),
             }
           ],
         };
@@ -96,13 +140,20 @@ export default function Home() {
       const data = await response.json();
 
       if (data.success) {
+        toast.success('✅ Calculation completed successfully!');
         setResult(data.data);
         setStep(5);
       } else {
-        alert('Error: ' + data.error);
+        if (data.details && Array.isArray(data.details)) {
+          data.details.forEach((d: any) => {
+            toast.error(`${d.field}: ${d.message}`);
+          });
+        } else {
+          toast.error(data.error || 'Calculation failed');
+        }
       }
     } catch (error) {
-      alert('Failed to calculate emissions: ' + error);
+      toast.error('❌ Failed to calculate emissions. Please try again.');
       console.error('Calculation error:', error);
     } finally {
       setLoading(false);
@@ -132,6 +183,7 @@ export default function Home() {
       dietType: 'medium-meat',
       shoppingFrequency: 'average',
     });
+    toast.success('Form reset successfully');
   };
 
   return (

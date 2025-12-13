@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 interface StepTransportationProps {
   formData: any;
   updateField: (field: string, value: any) => void;
@@ -6,6 +8,38 @@ interface StepTransportationProps {
 }
 
 export default function StepTransportation({ formData, updateField, onNext, onBack }: StepTransportationProps) {
+  const handleNext = () => {
+    // Validate vehicle if enabled
+    if (formData.hasVehicle) {
+      if (formData.vehicleDistance <= 0) {
+        toast.error('Please enter a valid vehicle distance (greater than 0)');
+        return;
+      }
+      if (!formData.vehicleModelId) {
+        toast.error('Please select a vehicle model');
+        return;
+      }
+    }
+
+    // Validate flights if enabled
+    if (formData.hasFlights) {
+      if (!formData.departureAirport || formData.departureAirport.length !== 3) {
+        toast.error('Please enter a valid 3-letter departure airport code (e.g., FRA)');
+        return;
+      }
+      if (!formData.destinationAirport || formData.destinationAirport.length !== 3) {
+        toast.error('Please enter a valid 3-letter destination airport code (e.g., JFK)');
+        return;
+      }
+      if (formData.flightPassengers < 1) {
+        toast.error('Number of passengers must be at least 1');
+        return;
+      }
+    }
+
+    onNext();
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -128,7 +162,7 @@ export default function StepTransportation({ formData, updateField, onNext, onBa
           Back
         </button>
         <button
-          onClick={onNext}
+          onClick={handleNext}
           className="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
         >
           Next: Lifestyle
