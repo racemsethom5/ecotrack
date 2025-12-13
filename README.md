@@ -15,9 +15,6 @@ Calculator
 ./screenshots/calculator.png
 )
 
-*
-Multi-step form for calculating your carbon footprint
-*
 
 ###
  Results Dashboard
@@ -29,9 +26,6 @@ Results Dashboard
 ./screenshots/dashboard.png
 )
 
-*
-Interactive charts showing your emission breakdown
-*
 
 ###
  Calculation History
@@ -43,9 +37,6 @@ History
 ./screenshots/history.png
 )
 
-*
-Track and compare your past calculations
-*
 
 ##
  🚀 Quick Start
@@ -159,18 +150,17 @@ docker-compose logs -f app  # View logs
 AI assistance was used in the following areas:
 -
  
-**
+
 Design improvements
-**
+
  - UI/UX enhancements and component styling
 
-**
+
 Bug fixing
-**
+
  - Debugging and resolving technical issues
 
-**
 Documentation
-**
+
  - README and setup guides
 
